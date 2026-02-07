@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Максим Голбан | Финансовый консалтинг</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-dark: #1a1f36;
+            --primary-light: #2d3748;
+            --accent-soft: #667eea;
+            --accent-secondary: #764ba2;
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-light: linear-gradient(135deg, #a3bded 0%, #6991c7 100%);
+            --text-primary: #f7fafc;
+            --text-secondary: #cbd5e0;
+            --card-bg: rgba(45, 55, 72, 0.7);
+            --border-radius: 16px;
+            --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.2);
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 2rem;
+            --spacing-lg: 3rem;
+            --spacing-xl: 4rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--primary-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(118, 75, 162, 0.1) 0%, transparent 50%);
+            min-height: 100vh;
+            padding-bottom: var(--spacing-xl);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+        }
+
+        /* Заголовок с градиентом и эффектом прозрачности */
+        .gradient-header {
+            text-align: center;
+            margin: var(--spacing-xl) 0;
+            position: relative;
+        }
+
+        .gradient-header h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+            line-height: 1.1;
+            margin-bottom: var(--spacing-sm);
+            text-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+            position: relative;
+            display: inline-block;
+        }
+
+        .gradient-header h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 25%;
+            width: 50%;
+            height: 4px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+        }
+
+        .gradient-header p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Секции */
+        .section {
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-md);
+            position: relative;
+            padding-left: var(--spacing-sm);
+        }
+
+        .section-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 5px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+        }
+
+        /* Карточка профиля */
+        .profile-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+            box-shadow: var(--shadow-soft);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .profile-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: var(--spacing-md);
+            font-size: 1.8rem;
+            flex-shrink: 0;
+        }
+
+        .profile-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .profile-experience {
+            color: var(--accent-soft);
+            font-weight: 600;
+        }
+
+        /* Карточки навыков с анимацией */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .skill-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-md);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: var(--accent-soft);
+        }
+
+        .skill-card:hover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient-primary);
+        }
+
+        .skill-icon {
+            font-size: 2rem;
+            margin-bottom: var(--spacing-sm);
+            color: var(--accent-soft);
+        }
+
+        .skill-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        /* Примеры кейсов */
+        .cases-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .case-box {
+            background: rgba(45, 55, 72, 0.8);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-md);
+            border-left: 5px solid var(--accent-soft);
+            transition: all 0.3s ease;
+        }
+
+        .case-box:hover {
+            background: rgba(45, 55, 72, 1);
+            transform: translateX(5px);
+        }
+
+        .case-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-xs);
+            color: var(--accent-soft);
+        }
+
+        /* Сетка инструментов в виде тегов */
+        .tags-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .tag {
+            background: rgba(102, 126, 234, 0.15);
+            border-radius: 50px;
+            padding: var(--spacing-xs) var(--spacing-md);
+            font-size: 0.9rem;
+            color: var(--accent-soft);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .tag:hover {
+            background: rgba(102, 126, 234, 0.3);
+            transform: scale(1.05);
+        }
+
+        /* Форматы сотрудничества */
+        .cooperation-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .cooperation-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-md);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .cooperation-card:hover {
+            background: rgba(45, 55, 72, 0.9);
+            transform: translateY(-5px);
+        }
+
+        .cooperation-icon {
+            font-size: 2rem;
+            margin-bottom: var(--spacing-sm);
+            color: var(--accent-secondary);
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .gradient-header h1 {
+                font-size: 2.8rem;
+            }
+
+            .gradient-header p {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 1.7rem;
+            }
+
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .profile-icon {
+                margin-right: 0;
+                margin-bottom: var(--spacing-md);
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cases-container {
+                grid-template-columns: 1fr;
+            }
+
+            .cooperation-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gradient-header h1 {
+                font-size: 2.2rem;
+            }
+
+            .container {
+                padding: 0 var(--spacing-sm);
+            }
+
+            .profile-card {
+                padding: var(--spacing-md);
+            }
+        }
+
+        /* Акцентные элементы */
+        .accent-text {
+            color: var(--accent-soft);
+            font-weight: 600;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, rgba(102, 126, 234, 0.2) 0%, transparent 100%);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.5), transparent);
+            margin: var(--spacing-lg) 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="gradient-header">
+            <h1>Максим Голбан</h1>
+            <p>Финансовый консалтинг и стратегическое планирование для бизнеса</p>
+        </header>
+
+        <section class="section">
+            <div class="profile-card">
+                <div class="profile-header">
+                    <div class="profile-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <div>
+                        <div class="profile-name">Максим Голбан</div>
+                        <div class="profile-experience">Более 20 лет опыта в финансах</div>
+                    </div>
+                </div>
+                <p>От менеджера в банке до уровня финансового директора промышленной группы компаний. Зачастую руководитель не имеет актуальной достоверной информации о текущих процессах в продажах, закупках, производстве, запасах и деньгах, принимает решения интуитивно.</p>
+                <p class="accent-text" style="margin-top: var(--spacing-sm);">Я помогу на базе своего опыта разобраться в том, что реально есть в вашем учете: подскажу, насколько можно верить цифрам и как превратить данные в управляемый план действий.</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Что предлагаем</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="skill-title">Система отчетности и KPI</div>
+                    <p>Выстраивание системы оперативной и стратегической отчетности по продажам, производству, складу, логистике, закупкам и финансам; внедрение дашбордов и KPI.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fas fa-search-dollar"></i>
+                    </div>
+                    <div class="skill-title">Экспресс-аудит и анализ</div>
+                    <p>Проведение экспресс-аудита или глубокого анализа для верификации данных, если есть сомнения в их достоверности.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <div class="skill-title">Внедрение бюджетирования</div>
+                    <p>Внедрение системы бюджетирования для эффективного планирования и контроля финансовых потоков.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <div class="skill-title">Казначейство и платежи</div>
+                    <p>Организация централизованного единого казначейства в группе компаний; автоматизация процессов; порядок в платежах - платежи по плану.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <div class="skill-title">Финансовые модели</div>
+                    <p>Разработка рабочей финансовой модели, которая помогает снижать потери на производстве и в непроизводственных процессах.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <div class="skill-title">Динамическое планирование</div>
+                    <p>Уникальный опыт построения и внедрения динамического планирования в производстве (разработка моего партнера).</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <section class="section">
+            <h2 class="section-title">Примеры кейсов</h2>
+            <div class="cases-container">
+                <div class="case-box">
+                    <div class="case-title">Оптимизация отчетности</div>
+                    <p>Внедрение системы дашбордов и KPI для промышленной группы компаний, что позволило сократить время подготовки отчетов на 60% и улучшить видимость ключевых показателей.</p>
+                </div>
+                <div class="case-box">
+                    <div class="case-title">Аудит финансовых данных</div>
+                    <p>Проведение глубокого аудита данных для компании с сомнениями в достоверности отчетности. Выявление и устранение ошибок на сумму более 15 млн рублей.</p>
+                </div>
+                <div class="case-box">
+                    <div class="case-title">Централизация казначейства</div>
+                    <p>Организация централизованного казначейства для холдинга из 8 компаний, что позволило сократить неплановые платежи на 40% и оптимизировать денежные потоки.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Инструменты и методики</h2>
+            <div class="tags-grid">
+                <span class="tag">Финансовый анализ</span>
+                <span class="tag">Бюджетирование</span>
+                <span class="tag">Дашборды и KPI</span>
+                <span class="tag">Казначейство</span>
+                <span class="tag">Управленческий учет</span>
+                <span class="tag">Прогнозирование</span>
+                <span class="tag">Финансовые модели</span>
+                <span class="tag">Аудит данных</span>
+                <span class="tag">Динамическое планирование</span>
+                <span class="tag">Оптимизация процессов</span>
+                <span class="tag">Стратегическая отчетность</span>
+                <span class="tag">Автоматизация</span>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <section class="section">
+            <h2 class="section-title">Форматы сотрудничества</h2>
+            <div class="cooperation-container">
+                <div class="cooperation-card">
+                    <div class="cooperation-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="skill-title">Почасовая консультация</div>
+                    <p>Индивидуальные консультации по конкретным вопросам финансового управления.</p>
+                </div>
+                <div class="cooperation-card">
+                    <div class="cooperation-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="skill-title">Абонплата</div>
+                    <p>Регулярное сопровождение и поддержка на постоянной основе.</p>
+                </div>
+                <div class="cooperation-card">
+                    <div class="cooperation-icon">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <div class="skill-title">Проект</div>
+                    <p>Полный цикл работ по внедрению систем отчетности, бюджетирования или казначейства.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="profile-card">
+                <h3 class="section-title" style="font-size: 1.5rem; margin-bottom: var(--spacing-sm);">Финансовые условия</h3>
+                <p>Возможность работы по безналичному расчету:</p>
+                <div style="margin-top: var(--spacing-sm);">
+                    <div style="display: flex; align-items: center; margin-bottom: var(--spacing-xs);">
+                        <i class="fas fa-check accent-text" style="margin-right: 10px;"></i>
+                        <span>Без НДС от ИП</span>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <i class="fas fa-check accent-text" style="margin-right: 10px;"></i>
+                        <span>С НДС 22% от ООО</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Добавляем интерактивность карточкам
+        document.addEventListener('DOMContentLoaded', function() {
+            const skillCards = document.querySelectorAll('.skill-card');
+            const caseBoxes = document.querySelectorAll('.case-box');
+            
+            // Анимация для карточек навыков
+            skillCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.zIndex = '10';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.zIndex = '1';
+                });
+            });
+            
+            // Анимация для кейсов
+            caseBoxes.forEach(box => {
+                box.addEventListener('mouseenter', function() {
+                    const allBoxes = document.querySelectorAll('.case-box');
+                    allBoxes.forEach(b => {
+                        if (b !== this) {
+                            b.style.opacity = '0.8';
+                        }
+                    });
+                });
+                
+                box.addEventListener('mouseleave', function() {
+                    const allBoxes = document.querySelectorAll('.case-box');
+                    allBoxes.forEach(b => {
+                        b.style.opacity = '1';
+                    });
+                });
+            });
+            
+            // Плавное появление элементов при прокрутке
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            // Наблюдаем за всеми секциями и карточками
+            document.querySelectorAll('.section, .skill-card, .case-box, .cooperation-card').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
